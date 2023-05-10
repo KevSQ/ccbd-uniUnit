@@ -1,39 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
-  <script src='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
-  <script src="index.js"></script>
-  <link href='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css' rel='stylesheet'/>
-  <link href='style.css' rel="stylesheet"/>
-  <title>UniUnit</title>
-</head>
-<body>
-    <div id='map'></div>
-    <script>
-    // TO MAKE THE MAP APPEAR YOU MUST
-    // ADD YOUR ACCESS TOKEN FROM
-    // https://account.mapbox.com
-    mapboxgl.accessToken = 'pk.eyJ1Ijoia2V2c3EiLCJhIjoiY2xoZjFvdHg5MXFzMDNmczBlbjc1MThobCJ9.45X88DFLurqWGjJNPA70rA';
-    const map = new mapboxgl.Map({
-        container: 'map', // container ID
-        style: 'mapbox://styles/mapbox/streets-v12', // style URL
-        center: [-73.96183463220808, 40.80815698272406], // starting position [lng, lat]
-        zoom: 16, // starting zoom
-    });
-    </script>
-    <div id="markerMenu">
-        <button type="submit" id="newLocBtn"> Add Location</button>
-    </div>
-
-
-    <div id='info'></div>
-
-
-
-
-
-</body>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Welcome to UniUnit</title>
+    <style>
+      body {
+        background-color: #FFCD29;
+      }
+      #logo {
+        width: 300px;
+        height: auto;
+        margin: 50px auto;
+        display: block;
+      }
+      h1 {
+        text-align: center;
+        font-size: 48px;
+        font-weight: bold;
+        margin-bottom: 30px;
+      }
+      #slogan {
+        text-align: center;
+        font-size: 24px;
+        font-style: italic;
+        margin-bottom: 50px;
+      }
+      #register-btn {
+        display: block;
+        width: 200px;
+        height: 50px;
+        margin: 0 auto;
+        background-color: #BDE3FF;
+        color: white;
+        text-align: center;
+        font-size: 24px;
+        line-height: 50px;
+        text-decoration: none;
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <img id="logo" src="uniunit-logo.png" alt="UniUnit Logo">
+    <h1>Welcome to UniUnit</h1>
+    <p id="slogan"><em>Study Together.</em></p>
+    <a id="register-btn" href="https://uniunit-auth.auth.us-east-1.amazoncognito.com/login?client_id=ojtb1tuvvmanlt9hoo8r41oq0&response_type=code&scope=email+openid&redirect_uri=https%3A%2F%2Funiunit-ccbd.s3.amazonaws.com%2FHome.html">Register/Sign In</a>
+  </body>
 </html>

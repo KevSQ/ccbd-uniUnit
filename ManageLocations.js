@@ -29,7 +29,7 @@ $(function() {
     // Add the geocoder to the map
     map.addControl(geocoder);
     
-    
+    /*
     map.on('load', () => {
 
         const params = {
@@ -38,17 +38,15 @@ $(function() {
         };
         renderLocationLambda.invoke(params, function(err, data) {
             if (err) console.log(err, err.stack);
-            else console.log('Returned data ');
-            console.log(JSON.stringify(data));
+            else console.log('Returned data ', data);
             allLocations = data;
         });
-
         //new mapboxgl.Popup().setText().addTo(map);
         //new mapboxgl.Marker().setLngLat([-96, 37.8]).addTo(map).setPopup(popup);
 
     });
-    
-
+    */
+   
     $('#markerLock').click(() => {
         // Add a new click listener that saves the clicked coordinates
         marker.remove();

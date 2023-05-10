@@ -5,11 +5,11 @@
 
 #map {
     position: absolute;
-    top: 0;
+    top: 70%;
     right: 0;
-    bottom: 0;
-    width: 65vw; 
-    height: 100vh;
+    transform:translate(0, -50%);
+    width: 40vw; 
+    height: 60vh;
 }
 
 #markerMenu {
@@ -17,20 +17,66 @@
     width: 35vw;
     margin-top: 2em;
     background-color: white;
+    
 }
-
-
+#markerLock {
+  display: block;
+  margin: auto;
+  margin-top: 1.2em;
+  margin-bottom: 0px;
+  width: 50%;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  background-color: hsl(4, 100%, 70%);
+  color: black;
+  padding: 2px;
+  border-style: none;
+  border-radius: 10px;
+}
+  
 #newLocBtn {
   display: block;
   margin: auto;
   width: 50%;
   text-align: center;
+  font-family: 'Poppins', sans-serif;
   background-color: #FFEAA7;
   color: black;
   padding: 10px;
-  outline: none !important;
+  border-style: none;
   border-radius: 20px;
-
 }
 
+.locBoxLabel, .eventBoxLabel {
+    font-family: 'Poppins', sans-serif;
+    display: block;
+    margin-left: 3em;
+}
+
+.eventBoxLabel, .eventBoxText {
+    margin-left: 0em !important;
+}
+
+.locBoxText, .eventBoxText {
+    display: block;
+    margin: auto;
+    margin-bottom: 2em;
+    width: 80%;
+    padding: 8px;
+    border-radius: 20px;
+    border: none;
+    background-color: #F2F2F2;
+  }
   
+
+.locContainer {
+    position: relative;
+    margin-top: 4em;
+    margin-bottom: 4em;
+}
+
+
+
+#eventContainer {
+    color: black;
+}

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+   <script src="https://sdk.amazonaws.com/js/aws-sdk-2.819.0.min.js"></script>
+   <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+   <script src="./js/amazon-cognito-identity.min.js"></script>
+   <script src="events.js"></script>
+   <!-- start delete here-->
+   <!-- script 2-->
+      <script>
+      // Initialize the AWS SDK
+      AWS.config.region = 'us-east-1';
+      var authenticationData = {
+              Username : 'ricky123',
+              Password : 'Ricky123',
+          };
+          var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
+      // Initialize the Cognito User Pool
+      var poolData = {
+          UserPoolId: 'us-east-1_MtQoEp2oE',
+          ClientId: 'ojtb1tuvvmanlt9hoo8r41oq0'
+      };
+      var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+      // Get the current user
+      console.log(userPool.getCurrentUser());
+      var userData = {
+              Username : 'ricky123',
+              Pool : userPool
+          };
+      var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+      cognitoUser.authenticateUser(authenticationDetails, {
+          onSuccess: function (result) {
+              var accessToken = result.getAccessToken().getJwtToken();
+      
+              /* Use the idToken for Logins Map when Federating User Pools with identity pools or when passing through an Authorization Header to an API Gateway Authorizer */
+               var idToken = result.idToken.jwtToken;
+          },
+      
+          onFailure: function(err) {
+              alert(err);
+      },
+      
+      });
+      //var cognitoUser = userPool.getCurrentUser();
+      // If the user is logged in, display their name
+      console.log(cognitoUser);
+      if (cognitoUser != null) {
+          console.log("i am here");
+          cognitoUser.getSession(function(err, session) {
+              if (err) {
+                  console.log(err);
+                  return;
+              }
+              console.log('session validity: ' + session.isValid());
+      
+              // Get user attributes
+              cognitoUser.getUserAttributes(function(err, result) {
+                  if (err) {
+                      console.log(err);
+                      return;
+                  }
+                  console.log(result);
+      
+                  // Find the user's name attribute
+                  var nameAttribute = result.find(function(attribute) {
+                      return attribute.getName() === 'name';
+                  });
+      
+                  // If the user has a name attribute, display their name
+                  if (nameAttribute != null) {
+                      var userName = nameAttribute.getValue();
+                      document.getElementById('username').textContent = userName;
+                  }
+              });
+          });
+      }
+      
+      
+      </script>
+   <!-- Display the user's name -->
+   <!-- end delete here-->
+   <head>
+      <title>UniUnit</title>
+      <!--<script src="userinfo.js"></script>-->
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+      <link href='style.css' rel="stylesheet"/>
+      <style>
+         body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
+         body {font-size:16px;}
+         .w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
+         .w3-half img:hover{opacity:1}
+      </style>
+   </head>
+   <body>
+      <!-- Sidebar/menu -->
+      <nav class="w3-sidebar w3-yellow w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar">
+         <br>
+         <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+         <div class="w3-container">
+            <h1 class="w3-padding-64"><b>UniUnit.</h1>
+         </div>
+         <div class="w3-bar-block">
+            <a href="Home.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a> 
+            <!--<a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Campus Events</a>-->
+            <a href="ManageEvents.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Manage Events</a> 
+            <a href="ManageLocations.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Manage Locations</a> 
+            <a href="https://uniunit-auth.auth.us-east-1.amazoncognito.com/logout?client_id=ojtb1tuvvmanlt9hoo8r41oq0&logout_uri=https%3A%2F%2Funiunit-ccbd.s3.amazonaws.com%2Findex.html" class="w3-bar-item w3-button w3-hover-white" style="background-color: #f44336; color: #fff; border-radius: 4px; padding: 10px 16px; text-align: center; text-decoration: none; display: inline-block;">Log out</a>
+         </div>
+      </nav>
+      <!-- Top menu on small screens -->
+      <header class="w3-container w3-top w3-hide-large w3-yellow w3-xlarge w3-padding">
+         <a href="javascript:void(0)" class="w3-button w3-yellow w3-margin-right" onclick="w3_open()">☰</a>
+         <span>UniUnit.</span>
+      </header>
+      <!-- Overlay effect when opening sidebar on small screens -->
+      <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+      <!-- !PAGE CONTENT! -->
+      <div class="w3-main" style="margin-left:340px;margin-right:40px">
+         <!-- Header -->
+         <div class="w3-container" style="margin-top:80px" id="showcase">
+            <h1 class="w3-jumbo"><b>Welcome back <span id="username"></span>!</b></h1>
+            <h1 class="w3-xxxlarge w3-text-red" style="color: rgb(255, 235, 60) !important"><b>Manage your events here.</b></h1>
+            <hr style="width:50px;border:5px solid rgb(255, 235, 60)" class="w3-round">
+            <div id="eventContainer">
+               <form class="eventForm">
+                 <div class="eventNameContainer">
+                   <div class="eventBoxLabel">Event Name:</div>
+                   <input type="text" class="eventBoxText">
+                 </div>
+                 <div class="eventLocationContainer">
+                   <div class="eventBoxLabel">Location:</div>
+                   <input type="text" class="eventBoxText">
+                 </div>
+                 <div class="eventDateContainer">
+                   <div class="eventBoxLabel">Date:</div>
+                   <input type="date" class="eventBoxText">
+                 </div>
+                 <div class="eventTimeContainer">
+                   <div class="eventBoxLabel">Time:</div>
+                   <input type="time" class="eventBoxText">
+                 </div>
+                 <div class="eventDescContainer">
+                   <div class="eventBoxLabel">Description:</div>
+                   <textarea rows="4" cols="50" class="eventBoxText"></textarea>
+                 </div>
+                 <div class="eventPeopleContainer">
+                   <div class="eventBoxLabel">People:</div>
+                   <input type="text" class="eventBoxText">
+                 </div>
+                 <button type="button" id="saveEventBtn">Save Event</button>
+               </form>
+             </div>             
+         </div>
+         <!-- End page content -->
+      </div>
+      <script>
+         // Script to open and close sidebar
+         function w3_open() {
+           document.getElementById("mySidebar").style.display = "block";
+           document.getElementById("myOverlay").style.display = "block";
+         }
+          
+         function w3_close() {
+           document.getElementById("mySidebar").style.display = "none";
+           document.getElementById("myOverlay").style.display = "none";
+         }
+
+      </script>
+   </body>
+</html>
